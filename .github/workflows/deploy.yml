@@ -19,11 +19,12 @@ jobs:
         working-directory: ./server
         run: |
           mkdir -p gradle/wrapper
-          wget https://services.gradle.org/distributions/gradle-7.6.1-bin.zip
-          unzip gradle-7.6.1-bin.zip
+          wget https://services.gradle.org/distributions/gradle-7.6.1-all.zip
+          unzip gradle-7.6.1-all.zip
           mv gradle-7.6.1/gradle/wrapper/gradle-wrapper.jar gradle/wrapper/
           mv gradle-7.6.1/gradle/wrapper/gradle-wrapper.properties gradle/wrapper/
           chmod +x gradlew
+        
       
       - name: Build with Gradle
         working-directory: ./server
