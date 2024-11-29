@@ -42,7 +42,7 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: Start Session Manager session
-        run: aws ssm start-session --target i-05ee53499ed8f891d   
+        run: aws ssm start-session --target i-0eb0e2bbd5b50659e   
 
       - name: Deploy to Server
         env:
