@@ -1,0 +1,83 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: ${G_CLIENT_ID}
+            clientSecret: ${G_CLIENT_SECRET}
+            scope:
+              - email
+              - profile
+  spring:
+    servlet:
+      multipart:
+        enabled: true
+        max-file-size: 10MB
+        max-request-size: 10MB
+  datasource:
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update    # 애플리케이션 시작 시 데이터베이스 스키마를 생성합니다.
+    show-sql: true        # JPA에서 실행되는 SQL 쿼리를 콘솔에 출력합니다.
+    properties:
+      hibernate:
+        format_sql: true  # SQL 쿼리를 포맷하여 가독성을 높입니다.
+        highlight_sql: true # SQL 쿼리에서 중요한 부분을 강조합니다.
+        color-codes: true  # SQL 쿼리의 컬러 코드를 사용합니다.
+        use_sql_comments: true # SQL 쿼리에 주석을 추가합니다.
+    defer-datasource-initialization: true # 데이터 소스 초기화를 지연시킵니다.
+  #    open-in-view: false # (주석 처리됨) Open EntityManager in View 패턴을 비활성화합니다.
+  output:
+    ansi:
+      enabled: ALWAYS    # 콘솔 출력에서 ANSI 색상을 항상 활성화합니다.
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: error       # Hibernate SQL 로그 레벨을 에러로 설정합니다.
+        type:
+          descriptor:
+            sql:
+              BasicBinder: trace # SQL 바인딩 로그를 추적 레벨로 설정합니다.
+      springframework:    #트랜잭션사용시
+        orm:
+          jpa: DEBUG
+server:
+  servlet:
+    encoding:
+      force-response: true
+  mail:
+    host: smtp.gmail.com # 1
+    port: 587 # 2
+    username: ${EMAIL_USERNAME}
+    password: ${EMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true # 5 사용자 인증시도 여부 기본값 false
+          #timeout: 5000 # 6 Socket Read Timeout 시간(ms)
+          starttls:
+            enable: true # 7 StartTLS 활성화 여부 기본값 false
+            required: true
+mail:
+  address:
+    admin: ${ADMIN_MAIL}
+jwt:
+  key: ${JWT_SECRET_KEY}
+  access-token-expiration-minutes: 60
+  refresh-token-expiration-minutes: 420
+AUTH_CODE_EXPIRATION: 600
+redis:
+  host: localhost
+  port: 6379
+aws:
+  access-key-id: ${AWS_ACCESS_KEY}
+  secret-access-key: ${AWS_SECRET_ACCESS_KEY}
+  region: ap-northeast-2
+  s3:
+    bucket-name: ${AWS_S3_BUCKET}
