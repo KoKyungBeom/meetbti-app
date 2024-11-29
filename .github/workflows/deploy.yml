@@ -21,6 +21,7 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew build
+        working-directory: server
 
       - name: Docker build
         run: |
