@@ -15,20 +15,15 @@ jobs:
           java-version: '11'
           distribution: 'zulu'
       
-      - name: Create Gradle Wrapper
+      - name: Initialize Gradle Wrapper
         working-directory: ./server
         run: |
-          mkdir -p gradle/wrapper
-          wget https://services.gradle.org/distributions/gradle-7.6.1-all.zip
-          unzip gradle-7.6.1-all.zip
-          mv gradle-7.6.1/gradle/wrapper/gradle-wrapper.jar gradle/wrapper/
-          mv gradle-7.6.1/gradle/wrapper/gradle-wrapper.properties gradle/wrapper/
           chmod +x gradlew
-        
+          ./gradlew wrapper
       
       - name: Build with Gradle
         working-directory: ./server
-        run: ./gradlew build -x test
+        run: ./gradlew build
 
       - name: Docker build
         run: |
