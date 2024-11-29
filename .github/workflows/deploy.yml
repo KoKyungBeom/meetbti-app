@@ -15,21 +15,19 @@ jobs:
           java-version: '11'
           distribution: 'zulu'
       
-      - name: Grant execute permissions
+      - name: Create Gradle Wrapper
         working-directory: ./server
         run: |
+          mkdir -p gradle/wrapper
+          wget https://services.gradle.org/distributions/gradle-7.6.1-bin.zip
+          unzip gradle-7.6.1-bin.zip
+          mv gradle-7.6.1/gradle/wrapper/gradle-wrapper.jar gradle/wrapper/
+          mv gradle-7.6.1/gradle/wrapper/gradle-wrapper.properties gradle/wrapper/
           chmod +x gradlew
-          ls -l gradlew
-          ls -l gradle/wrapper/gradle-wrapper.jar
-      
-      - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@v1
       
       - name: Build with Gradle
         working-directory: ./server
         run: ./gradlew build -x test
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Docker build
         run: |
