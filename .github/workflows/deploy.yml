@@ -26,9 +26,10 @@ jobs:
         run: ./gradlew build
 
       - name: Docker build
+        working-directory: ./server
         run: |
           docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
-          docker build -t meetbti -f ./server/Dockerfile ./server
+          docker build -t meetbti .
           docker tag meetbti hyejipark/meetbti:${GITHUB_SHA::7}
           docker push hyejipark/meetbti:${GITHUB_SHA::7}
 
