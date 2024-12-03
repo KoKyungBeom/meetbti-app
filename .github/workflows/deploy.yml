@@ -95,11 +95,13 @@ jobs:
           EOF
 
       - name: Install dependencies
+        working-directory: ./client
         run: npm install
 
       - name: Build static file
+        working-directory: ./client
         run: CI=false npm run build
-  
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
