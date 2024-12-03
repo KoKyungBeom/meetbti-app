@@ -73,7 +73,7 @@ jwt:
   refresh-token-expiration-minutes: 420
 AUTH_CODE_EXPIRATION: 600
 redis:
-  host: localhost
+  host: ${EC2_IP}
   port: 6379
 aws:
   access-key-id: ${AWS_ACCESS_KEY}
