@@ -64,6 +64,7 @@ jobs:
           -e DATASOURCE_URL=${{ secrets.DATASOURCE_URL }} \\
           -e DATASOURCE_USERNAME=${{ secrets.DATASOURCE_USERNAME }} \\
           -e DATASOURCE_PASSWORD=${{ secrets.DATASOURCE_PASSWORD }} \\
+          -e EC2_IP=${{ secrets.EC2_IP }} \\
           -e G_CLIENT_ID=${{ secrets.G_CLIENT_ID }} \\
           -e G_CLIENT_SECRET=${{ secrets.G_CLIENT_SECRET }} \\
           -e JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} \\
