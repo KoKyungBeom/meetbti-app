@@ -76,3 +76,36 @@ jobs:
           meetbti'
             ]" \
             --output text
+
+# client - deploy
+client-deploy:
+  runs-on: ubuntu-latest
+
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup node
+      uses: actions/setup-node@v2
+
+    - name: Create .env file
+      run: |
+        cat > .env <<EOF
+        REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}
+        EOF
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build static file
+      run: CI=false npm run build
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-northeast-2
+
+    - name: Deploy static site to S3 bucket
+      run: aws s3 sync ./build s3://meetbti-client
