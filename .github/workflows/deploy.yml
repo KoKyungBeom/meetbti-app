@@ -30,8 +30,8 @@ jobs:
         run: |
           docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
           docker build -t meetbti .
-          docker tag meetbti hyejipark/meetbti:${GITHUB_SHA::7}
-          docker push hyejipark/meetbti:${GITHUB_SHA::7}
+          docker tag meetbti kokyungbum/meetbti:${GITHUB_SHA::7}
+          docker push kokyungbum/meetbti:${GITHUB_SHA::7}
 
       # AWS credentials configuration
       - name: Configure AWS credentials
@@ -42,7 +42,7 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: Start Session Manager session
-        run: aws ssm start-session --target i-0eb0e2bbd5b50659e
+        run: aws ssm start-session --target i-051836f29d02ec06a
 
       - name: Deploy to Server
         env:
@@ -51,15 +51,15 @@ jobs:
           AWS_REGION: ap-northeast-2
         run: |
           aws ssm send-command \
-            --instance-ids i-0eb0e2bbd5b50659e \
+            --instance-ids i-051836f29d02ec06a \
             --document-name "AWS-RunShellScript" \
             --parameters "commands=[
               'if sudo docker ps -a --format \\'{{.Names}}\\' | grep -q \\'^server$\\'; then',
               '  sudo docker stop server',
               '  sudo docker rm server',
               'fi',
-              'sudo docker pull hyejipark/meetbti:${GITHUB_SHA::7}',
-              'sudo docker tag hyejipark/meetbti:${GITHUB_SHA::7} meetbti',
+              'sudo docker pull kokyungbum/meetbti:${GITHUB_SHA::7}',
+              'sudo docker tag kokyungbum/meetbti:${GITHUB_SHA::7} meetbti',
               'sudo docker run -d --name server -p 8080:8080 \\
           -e DATASOURCE_URL=${{ secrets.DATASOURCE_URL }} \\
           -e DATASOURCE_USERNAME=${{ secrets.DATASOURCE_USERNAME }} \\
@@ -111,4 +111,4 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: Deploy static site to S3 bucket
-        run: aws s3 sync ./client/build s3://meetbti-client
+        run: aws s3 sync ./client/build s3://meetbti
