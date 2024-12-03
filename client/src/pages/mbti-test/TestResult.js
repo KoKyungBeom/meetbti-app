@@ -6,7 +6,6 @@ import Header from '../../components/basic_css/Header';
 import { useAuth } from '../../auth/AuthContext';
 import mbtiData from '../../mbtiData/mbtiData';
 import sendGetLastTestResultRequest from '../../requests/GetTestResult';
-import KakaoShare from '../../share/KakaoShare';
 
 
 // 헤더(로고, 뒤로가기) 컴포넌트
