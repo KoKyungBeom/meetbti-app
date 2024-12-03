@@ -188,7 +188,6 @@ const NavigateSection = () => {
             <button className="navigate-button" 
             onClick={() => navigate('/')}>
               <img src="/public-img/logo-home(pink).png" alt="home"/></button>
-            <KakaoShare></KakaoShare>
             {/* <button className="navigate-button" 
             onClick={handleShare}>
           <img src="/public-img/logo-share(pink).png" alt="share"/></button> */}
