@@ -117,7 +117,7 @@ public class SecurityConfiguration {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("https://meetbti.site", "http://meetbti.site", "http://localhost:3000"));
+        configuration.setAllowedOrigins(Arrays.asList("https://api.meetbti.site", "https://meetbti.site", "https://www.meetbti.site", "http://localhost:3000"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST","PATCH","DELETE","OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
         configuration.setExposedHeaders(Arrays.asList("Authorization","MemberId"));
